@@ -1,0 +1,73 @@
+ @import "helpers/variables";
+ .modal-common {
+     display: none;
+     position: fixed;
+     top: 0;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     z-index: 1;
+ }
+ 
+ .modal-common.toggle-modal {
+     display: block;
+ }
+ 
+ .modal-default {
+     background: $color-modal-background;
+     background-color: $color-modal-opacity;
+ }
+ 
+ .modal-edit {
+     width: 600px;
+     border-radius: 5px;
+     padding: 10px 15px 25px 30px;
+     margin: 30px auto;
+ }
+ 
+ .modal-default .modal-edit,
+ .modal-default .modal-confirm {
+     background-color: $color-modal-content-background;
+ }
+ 
+ .modal-confirm {
+     width: 300px;
+     border-radius: 5px;
+     margin: 130px auto;
+ }
+ 
+ .modal-confirm .modal-header {
+     text-align: center;
+     font-weight: 700;
+     border-bottom: 1px solid $color-modal-divider;
+ }
+ 
+ .modal-confirm .modal-paragraph {
+     text-align: center;
+     padding: 5px 20px 15px;
+ }
+ 
+ .modal-select-group {
+     border: 1px solid $color-modal-divider;
+     border-radius: 4px;
+     height: 120px;
+     padding: 5px 15px;
+     overflow-y: auto;
+ }
+ 
+ .modal-select-divider {
+     float: left;
+     margin-right: 15px;
+     height: 120px;
+     content: "";
+     border-left: 1px solid $color-modal-divider;
+ }
+ 
+ .modal-select-group .checkbox:first-child {
+     border-bottom: 1px solid $color-modal-divider;
+     margin-bottom: 10px;
+ }
+ 
+ .delivery {
+     height: 200px;
+ }

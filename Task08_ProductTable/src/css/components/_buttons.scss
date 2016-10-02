@@ -1,0 +1,19 @@
+  @import "helpers/mixins";
+  @import "helpers/variables";
+  .button-sort {
+      border: none;
+      line-height: 1.5rem;
+      background: none;
+  }
+  
+  .editBtn,
+  .deleteBtn,
+  .confirmBtn,
+  .declineBtn,
+  .confirmUpdateBtn {
+      width: 100%;
+  }
+  
+  .editBtn {
+      @include ellipsis($max-table-btn-width);
+  }

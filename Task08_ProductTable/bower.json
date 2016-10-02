@@ -1,0 +1,10 @@
+{
+  "name": "rdstarterkitbeginner",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": "latest",
+    "bootstrap-css": "latest",
+    "lodash": "latest"
+  }
+}

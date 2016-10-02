@@ -1,0 +1,36 @@
+ @import "helpers/mixins";
+ @import "helpers/variables";
+ .form-control.invalid {
+     border: 1px solid $color-invalid-border;
+     transition: all .2s;
+     box-shadow: 0 0 10px $color-invalid;
+ }
+ 
+ .form-control.valid {
+     border: 1px solid $color-valid-border;
+     transition: all .2s;
+     box-shadow: 0 0 10px $color-valid;
+ }
+ 
+ .information-field {
+     line-height: 34px;
+     @include ellipsis($max-validation-info-width);
+ }
+ 
+ .information-field.invalid:before {
+     content: $cross-invalid;
+     margin-right: 10px;
+ }
+ 
+ .information-field.valid:before {
+     content: $check-valid;
+     margin-right: 10px;
+ }
+ 
+ .information-field.invalid {
+     color: $color-invalid;
+ }
+ 
+ .information-field.valid {
+     color: $color-valid;
+ }

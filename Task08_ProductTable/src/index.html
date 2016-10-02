@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Task08</title>
+  <meta charset="utf-8" />
+  <!-- inject:css -->
+  <!-- css files will be automaticaly insert here -->
+  <!-- endinject -->
+</head>
+
+<body>
+  <div class="container paragraph">
+    <div class="row" id="header">
+      <form action="#" method="get" class="form-group col-xs-6">
+        <div class="row">
+          <div class="col-xs-10">
+            <input type="search" class="form-control" placeholder="Item Substring Search" name="filter" id="filterId">
+          </div>
+          <div class="col-xs-2">
+            <button type="submit" class="btn btn-info filterBtn" name="filterBtn" id="filterBtnId">Filter</button>
+          </div>
+        </div>
+      </form>
+      <div class="col-xs-6">
+        <button type="button" class="btn btn-success pull-right addBtn">Add New</button>
+      </div>
+    </div>
+    <main class="row ">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-items" id="itemList">
+          <thead>
+            <tr class="row">
+              <td class="col-xs-5">
+                <span>Name</span>
+                <button type="button" class="button-sort pull-right" name="buttonNameSort" id="buttonNameSortId" data-type="name">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                  </button>
+              </td>
+              <td class="col-xs-3">
+                <span>Price</span>
+                <button type="button" class="button-sort pull-right" name="buttonPriceSort" id="buttonPriceSortId" data-type="price">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                  </button>
+              </td>
+              <td class="col-xs-4">Actions</td>
+            </tr>
+          </thead>
+
+          <tbody id="tableRenderId">
+          </tbody>
+
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <div id="modalId" class="modal-common modal-default">
+  </div>
+
+  <script id="itemTableTemplateId" type="text/html">
+    <% _.each(itemList, function(item) { %>
+      <%= itemTemplate({ item: item }) %>
+        <% }); %>
+  </script>
+
+  <script id="itemRowTemplateId" type="text/html">
+    <tr data-itemId="<%= item.id %>" class="row">
+      <td>
+        <a href="" data-id="<%= item.id %>" class="editBtn">
+          <%- item.name %>
+        </a>
+        <span class="badge pull-right"><%- item.count %></span>
+      </td>
+      <td>
+        <span class="cont"><%- MYAPP.helpers.currencyFormatter(item.price, true) %></span>
+      </td>
+      <td class="text-center row">
+        <div class="col-xs-6">
+          <button data-id="<%= item.id %>" class="btn btn-warning editBtn">Edit</button>
+        </div>
+        <div class="col-xs-6">
+          <button data-id="<%= item.id %>" class="btn btn-danger deleteBtn">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </script>
+
+  <script id="modalDeleteId" type="text/html">
+    <div class="modal-confirm" id="deleteForm">
+      <form method="post">
+        <h5 class="modal-header">Are you sure?</h5>
+        <div class="modal-paragraph">
+          <p>Are you sure you want to perform this action?</p>
+          <div class="row">
+            <div class="col-xs-6">
+              <button data-id="<%= itemId %>" type="submit" class="tab-action btn btn-success confirmBtn">Yes</button>
+            </div>
+            <div class="col-xs-6">
+              <button type="button" class="tab-action btn btn-danger declineBtn">No</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </script>
+
+  <script id="modalEditId" type="text/html">
+    <div class="modal-edit">
+      <form action="#" method="post" id="updateForm">
+        <input type="number" name="itemId" id="itemIdField" value="<%- item.id %>" hidden>
+        <div class="row">
+          <div class="col-xs-10">
+          </div>
+          <div class="col-xs-2">
+            <button type="button" class="tab-action btn btn-danger declineBtn"><span class="glyphicon glyphicon-remove"></span></button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-xs-12">
+            <label for="itemNameIdField">Name:</label>
+          </div>
+          <div class="col-xs-6">
+            <input type="text" class="tab-action form-control validate" name="itemName" id="itemNameIdField" data-opt="name" placeholder="Name" value="<%- item.name %>">
+          </div>
+          <div class="col-xs-6">
+            <span class="information-field validate"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-xs-12">
+            <label for="supplierEmailIdField">Supplier email:</label>
+          </div>
+          <div class="col-xs-6">
+            <input type="email" class="tab-action form-control validate" name="itemSupplier" id="supplierEmailIdField" data-opt="email" placeholder="Email" value="<%- item.email %>">
+          </div>
+          <div class="col-xs-6">
+            <span class="information-field validate"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-xs-12">
+            <label for="itemCountIdField">Count:</label>
+          </div>
+          <div class="col-xs-3">
+            <input type="number" class="tab-action form-control validate" name="itemCount" id="itemCountIdField" data-opt="count" placeholder="Count" value="<%- item.count %>">
+          </div>
+          <div class="col-xs-9">
+            <span class="information-field validate"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-xs-12">
+            <label for="itemPriceIdField ">Price:</label>
+          </div>
+          <div class="col-xs-6">
+            <input type="text " class="tab-action form-control validate currency" name="itemPrice" id="itemPriceIdField" data-opt="price" placeholder="Price" value="<%- MYAPP.helpers.currencyFormatter(item.price, true) %>">
+          </div>
+          <div class="col-xs-6">
+            <span class="information-field validate"></span>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-xs-12 ">
+            <label for="deliveryId">Delivery:</label>
+          </div>
+        </div>
+        <div class="form-group delivery row">
+          <div class="col-xs-4">
+            <select class="tab-action form-control" id="deliveryId">
+              <option value="none"></option>
+              <option value="countries">Country</option>
+              <option value="cities">City</option>
+            </select>
+          </div>
+
+          <div id="deliveryCountries">
+          </div>
+
+          <div id="deliveryCities">
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-xs-3">
+            <button data-id="<%- item.id %>" type="submit" class="tab-action btn btn-success confirmUpdateBtn"></button>
+          </div>
+          <div class="col-xs-9">
+          </div>
+        </div>
+      </form>
+    </div>
+  </script>
+
+  <script id="deliveryCountriesId" type="text/html">
+    <div class="col-xs-4 delivery-group hidden" data-type="countries">
+      <div class="modal-select-divider">
+      </div>
+      <div class="modal-select-group">
+
+        <% _.each(countriesList, function(country) { %>
+          <div class="radio">
+            <% if (itemDeliveries) { %>
+              <% if (itemDeliveries.country === country) { %>
+                <label><input type="radio" name="countryRadio" class="tab-action" checked value="<%- country %>"><%- country %></label>
+                <% } else { %>
+                  <label><input type="radio" name="countryRadio" class="tab-action" value="<%- country %>"><%- country %></label>
+                  <% }; %>
+                    <% } else { %>
+                      <label><input type="radio" name="countryRadio" class="tab-action" value="<%- country %>"><%- country %></label>
+                      <% }; %>
+          </div>
+          <% }); %>
+      </div>
+    </div>
+  </script>
+
+  <script id="deliveryCitiesId" type="text/html">
+
+    <% _.each(countriesList, function(country) { %>
+      <div class="col-xs-4 delivery-group hidden" data-type="<%- country %>">
+        <div class="modal-select-divider">
+        </div>
+        <div class="modal-select-group modal-checkbox">
+          <div class="checkbox">
+            <label><input class="tab-action checkAll" type="checkbox" name="cityCheckAll" value="SelectAll">Select All</label>
+          </div>
+
+          <% _.each(MYAPP.deliveryStorage.getCities(country), function(city) { %>
+            <div class="checkbox">
+              <label><input class="tab-action" name="cityCheckBox" type="checkbox" value="<%- city %>"><%- city %></label>
+            </div>
+            <% }); %>
+        </div>
+      </div>
+
+      <% }); %>
+  </script>
+  <!-- inject:js -->
+  <!-- js files will be automaticaly insert here -->
+  <!-- endinject -->
+</body>
+
+</html>

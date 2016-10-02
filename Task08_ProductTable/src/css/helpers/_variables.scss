@@ -1,0 +1,20 @@
+//sizes
+$min-table-width: 800px;
+$max-badge-width:30px;
+$max-validation-info-width:250px;
+$max-table-btn-width:200px;
+//colors
+////colors for validation
+$color-valid:#449d44;
+$color-invalid:#ff000c;
+$color-valid-border:#398439;
+$color-invalid-border:#ff001f;
+////colors for modal window
+$color-modal-divider:#ccc;
+$color-modal-background:#000000;
+$color-modal-opacity:rgba(0, 0, 0, 0.5);
+$color-modal-content-background:#FFFFFF;
+//font-elements
+////font elements for validation
+$cross-invalid:"\2A2F";
+$check-valid:"\2713";

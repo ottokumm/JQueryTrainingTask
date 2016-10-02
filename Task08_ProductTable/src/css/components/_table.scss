@@ -1,0 +1,23 @@
+  @import "helpers/variables";
+  @import "helpers/mixins";
+  .table {
+      table-layout: fixed;
+      width: 100%;
+      min-width: $min-table-width;
+  }
+  
+  .table.table-items> thead> tr> td,
+  .table.table-items> tbody> tr> td {
+      vertical-align: middle;
+      text-align: center;
+  }
+  
+  .table.table-items> tbody> tr> td:nth-of-type(1) {
+      text-align: left;
+  }
+  
+  .table.table-items> tbody> tr> td:nth-of-type(2) {
+      .cont {
+          @include ellipsis(100px);
+      }
+  }
